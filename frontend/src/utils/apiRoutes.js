@@ -28,9 +28,10 @@ export const getRewardsApi = (add) => {
 };
 export const withdrawApi = `${host}/withdrawbtc`;
 
-export const BTCTestExplorerUrl = "https://mempool.space/tx/";
-export const getTXInfoUrl = "https://mempool.space/api/tx/";
-export const feeRateUrl = "https://mempool.space/api/v1/fees/recommended";
+export const BTCTestExplorerUrl = "https://mempool.space/testnet/tx/";
+export const getTXInfoUrl = "https://mempool.space/testnet/api/tx/";
+export const feeRateUrl =
+  "https://mempool.space/testnet/api/v1/fees/recommended";
 
 export const dayilyURL =
   "https://api.coingecko.com/api/v3/coins/ordinals/market_chart?vs_currency=usd&days=1";
