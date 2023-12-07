@@ -114,7 +114,7 @@ export function AuthStateProvider({ children }) {
     unconfirmed: 0,
     total: 0,
   });
-  const [network, setNetwork] = useState("livenet");
+  const [network, setNetwork] = useState("testnet");
 
   const [
     tokenList,
@@ -169,7 +169,7 @@ export function AuthStateProvider({ children }) {
     if (!connect) return;
     try {
       const result = await window.unisat.requestAccounts();
-      await window.unisat.switchNetwork("livenet");
+      await window.unisat.switchNetwork("testnet");
       handleAccountsChanged(result);
       setConnected(true);
       messageApi.notifySuccess("Wallet is connected!", 3);
@@ -212,7 +212,7 @@ export function AuthStateProvider({ children }) {
     if (!connect) return;
     try {
       const result = await window.unisat.requestAccounts();
-      await window.unisat.switchNetwork("livenet");
+      await window.unisat.switchNetwork("testnet");
       handleAccountsChanged(result);
       setConnected(true);
       messageApi.notifySuccess("Wallet is connected!", 3);

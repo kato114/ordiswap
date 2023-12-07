@@ -50,7 +50,7 @@ export function useUnisat() {
     if (!connect) return;
     try {
       const result = await unisat.requestAccounts();
-      await unisat.switchNetwork('livenet')
+      await unisat.switchNetwork('testnet')
       handleAccountsChanged(result);
       setConnected(true);
       messageApi.notifySuccess('Wallet is connected!', 3)
