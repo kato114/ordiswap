@@ -91,10 +91,10 @@ function ExchangeAddLiquidity() {
     const token = id == 1 ? record.token1 : record.token2;
     if (token == "BTC") {
       transfer = id == 1 ? record.token_transfer2 : record.token_transfer1;
-      inscriptionId = transfer ? transfer.inscription + "BTC" : "";
+      inscriptionId = transfer ? transfer.inscriptions[0].id + "BTC" : "";
     } else {
       transfer = id == 1 ? record.token_transfer1 : record.token_transfer2;
-      inscriptionId = transfer ? transfer.inscription : "";
+      inscriptionId = transfer ? transfer.inscriptions[0].id : "";
       // const res = await axios
       // await sleep(1000)
     }

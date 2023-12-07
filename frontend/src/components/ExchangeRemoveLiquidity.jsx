@@ -119,7 +119,7 @@ function ExchageRemoveLiquidity() {
     const transfer = record.lp_token_transfer;
     const token = record.lp_token;
     const amount = id == 1 ? record.token_amount1 : record.token_amount2;
-    const inscriptionId = transfer ? transfer.inscription : "";
+    const inscriptionId = transfer ? transfer.inscriptions[0].id : "";
     const disabled =
       inscriptionId == "" ||
       localStorage.getItem(inscriptionId) == "true" ||

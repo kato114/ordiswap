@@ -31,7 +31,7 @@ export function AddLiquidityTable({ dataSource }) {
     const transfer = id == 1 ? record.token_transfer1 : record.token_transfer2;
     const token = id == 1 ? record.token1 : record.token2;
     const amount = id == 1 ? record.token_amount1 : record.token_amount2;
-    const inscriptionId = transfer ? transfer.inscription : ''
+    const inscriptionId = transfer ? transfer.inscriptions[0].id : ''
     const disabled = (status != 11 || localStorage.getItem(inscriptionId) == 'true')
     const targetWallet = poolList.length ? poolList.find((pool) => pool.lp_token === record.lp_token).address : '';
     return (
