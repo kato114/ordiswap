@@ -1,0 +1,169 @@
+.app__menu {
+  position: sticky;
+  padding: 0 3rem 3rem;
+  min-height: 100vh;
+  margin-top: -76px;
+
+  width: 312px;
+  min-width: 312px;
+  background-color: getColor(base);
+  height: max-content;
+  padding-top: 2rem;
+  top: 0;
+  border: 0.5px solid #ffffff;
+  border-radius: 20px;
+  backdrop-filter: blur(13.5px);
+
+  footer {
+    position: absolute;
+    width: calc(100% - 32px);
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: $p-size;
+
+    p {
+      font-weight: 600;
+      font-size: 16px !important;
+      color: #6f767e;
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transform: translateY(3px);
+      justify-content: space-between;
+      width: 100%;
+      padding: 0px 50px;
+
+      img {
+        width: 24px !important;
+        margin-right: 10px;
+      }
+    }
+
+    .switch-theme {
+      margin-left: auto;
+
+      img {
+        width: 3rem;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1280px) {
+    width: 100%;
+    padding: 0 2rem 2rem;
+  }
+
+  .dark-theme & {
+    border: none;
+    background-color: #1a1d1f;
+    border-radius: 0;
+  }
+}
+
+.logo__container_aside {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #33383f;
+  font-size: 16px;
+  font-weight: 600 !important;
+  margin-top: 15px;
+  margin-bottom: 40px;
+
+  .dark-theme & {
+    color: #fea722;
+  }
+}
+
+.nav__list {
+  margin-bottom: 3rem;
+  list-style: none;
+
+  display: grid;
+  grid-gap: 1rem;
+
+  & > li {
+    .d-btn {
+      color: #6f767e;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: 0.3s;
+      font-size: 16px;
+      font-weight: 600;
+      padding-left: 1.5rem;
+
+      svg {
+        width: 3rem;
+        height: 3rem;
+        fill: #6f767e !important;
+        transition: 0.3s;
+      }
+
+      &:hover {
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+        .dark-theme & {
+          background: #33383f;
+
+          > svg {
+            fill: #fff !important;
+          }
+        }
+      }
+      &:active,
+      &.active {
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+
+        .dark-theme & {
+          background: #33383f;
+        }
+
+        svg {
+          fill: #fff !important;
+        }
+      }
+
+      &.noeffect {
+        box-shadow: none !important;
+
+        svg {
+          fill: #6f767e !important;
+        }
+
+        &:hover {
+          color: #6f767e !important;
+        }
+      }
+    }
+
+    ul {
+      padding-left: 5rem;
+      padding-bottom: 2.5rem;
+      font-size: 14px;
+      font-weight: 600;
+      color: #6f767e;
+      border-top: 2px solid #c6c6c6a0;
+
+      .dark-theme & {
+        border-top: 2px solid #c6c6c620;
+      }
+
+      li {
+        margin: 15px auto;
+      }
+    }
+  }
+}
+
+// FOR MOBILE
+@media only screen and (max-width: 800px) {
+  .app__menu {
+    // display: none;
+  }
+}
