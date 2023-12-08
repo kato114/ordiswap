@@ -29,6 +29,8 @@ import OrderStatus from "./customComponents/OrderStatus";
 import BlockScan from "./customComponents/BlockScan";
 import Modal from "./Modal";
 
+import swap_img from "../assets/images/swap.png";
+
 function ExchangeSwap() {
   const isMobileView_500 = useResponsiveView(500);
   const { messageApi } = useToast();
@@ -400,7 +402,7 @@ function ExchangeSwap() {
     if (!connected)
       return (
         <button
-          className="d-btn d-btn-primary center-margin active"
+          className="btn w-full center-margin active"
           onClick={(e) => {
             e.preventDefault();
             connectWallet();
@@ -412,16 +414,13 @@ function ExchangeSwap() {
 
     if (!tokenOne || !tokenTwo)
       return (
-        <button
-          className="d-btn d-btn-primary center-margin active"
-          disabled={true}
-        >
+        <button className="btn w-full center-margin active" disabled={true}>
           Select a token
         </button>
       );
     return (
       <button
-        className="d-btn d-btn-primary center-margin active"
+        className="btn w-full center-margin active"
         disabled={
           !currentPool ||
           !currentPool.balance1 ||
@@ -497,14 +496,12 @@ function ExchangeSwap() {
           </section>
         </ReactPortal>
       )}
-      <section className="exchange__container-swap glass-effect center-margin">
+      <section className="exchange__container-swap center-margin">
         <header>
           <div>
-            <h2>Swap</h2>
-            <p>Trade tokens in an instant</p>
+            <h3>Swap Tokens</h3>
             {/* <p style={{color: "red"}}>please contact me on Telegram. <a href="https://t.me/@crypto0405" target="_blank">Nestor: @crypto0405</a></p> */}
           </div>
-          <hr />
           {/* <div className="btn-actions">
             <button className="setting__wrapper">
               <SettingsIcon onClick={handleSettingsOpen} />
@@ -555,35 +552,55 @@ function ExchangeSwap() {
         </header>
 
         <div className="swap__form center-margin">
-          <div className="mb-3 flex gap-8 relative">
-            <div
-              className="swap-position w-[42px] h-[42px] flex items-center justify-center absolute z-10 text-[20px] rounded-full bg-white border cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              onClick={() => {
-                setPosChange((prev) => !prev);
-                const temp = tokenOne;
-                setTokenOne(tokenTwo);
-                setTokenTwo(temp);
-                const tempAmount = tokenOneAmount;
-                setTokenOneAmount(tokenTwoAmount);
-                setTokenTwoAmount(tempAmount);
-                // console.log("poschange", tokenTwoAmount, tempAmount)
-              }}
-            >
-              {"<->"}
-            </div>
+          <div className="mb-24 flex flex-col gap-8 relative">
             {!posChange && (
-              <ExchangeSelectToken
-                amount={tokenOneAmount}
-                setAmount={onChangeTokenOneAmount}
-                token={tokenOne}
-                setToken={setTokenOne}
-                list={poolTokenLists[0]}
-                selectText={"Select Token"}
-                bordered={true}
-                label="From"
-                selectIcon={ordinals}
-                tokenDataList={tokenDataList}
-              />
+              <>
+                <ExchangeSelectToken
+                  amount={tokenOneAmount}
+                  setAmount={onChangeTokenOneAmount}
+                  token={tokenOne}
+                  setToken={setTokenOne}
+                  list={poolTokenLists[0]}
+                  selectText={"Select Token"}
+                  bordered={true}
+                  label="from"
+                  selectIcon={ordinals}
+                  tokenDataList={tokenDataList}
+                />
+                <ExchangeSelect
+                  amount={tokenOneAmount}
+                  setAmount={onChangeTokenOneAmount}
+                  token={tokenOne}
+                  setToken={setTokenOne}
+                  list={poolTokenLists[0]}
+                  selectText={"Select Token"}
+                  bordered={true}
+                  label="Swap from"
+                  selectIcon={ordinals}
+                  inputDisabled={!currentPool}
+                  tokenDataList={tokenDataList}
+                  showBalance={true}
+                  page="swap"
+                />
+              </>
+            )}
+            {!posChange && (
+              <div className="flex justify-center">
+                <img
+                  className="cursor-pointer"
+                  src={swap_img}
+                  onClick={() => {
+                    setPosChange((prev) => !prev);
+                    const temp = tokenOne;
+                    setTokenOne(tokenTwo);
+                    setTokenTwo(temp);
+                    const tempAmount = tokenOneAmount;
+                    setTokenOneAmount(tokenTwoAmount);
+                    setTokenTwoAmount(tempAmount);
+                    // console.log("poschange", tokenTwoAmount, tempAmount)
+                  }}
+                />
+              </div>
             )}
             <ExchangeSelectToken
               amount={
@@ -599,60 +616,10 @@ function ExchangeSwap() {
               list={posChange ? poolTokenLists[0] : poolTokenLists[1]}
               selectText={"Select Token"}
               bordered={true}
-              label={posChange ? "From" : "To"}
+              label={posChange ? "from" : "to"}
               inputDisabled={true}
               tokenDataList={tokenDataList}
             />
-            {posChange && (
-              <ExchangeSelectToken
-                amount={tokenOneAmount}
-                setAmount={onChangeTokenOneAmount}
-                token={tokenTwo}
-                setToken={setTokenTwo}
-                list={poolTokenLists[1]}
-                selectText={"Select Token"}
-                bordered={true}
-                label="To"
-                selectIcon={ordinals}
-                tokenDataList={tokenDataList}
-              />
-            )}
-          </div>
-          <hr />
-          {/* {true &&
-            <ExchangeSelect
-              amount={tokenOneAmount}
-              setAmount={onChangeTokenOneAmount}
-              token={tokenOne}
-              setToken={setTokenOne}
-              list={poolTokenLists[0]}
-              selectText={"Select Token"}
-              bordered={true}
-              label="Swap from"
-              selectIcon={ordinals}
-              inputDisabled={!currentPool}
-              tokenDataList={tokenDataList}
-            />
-          } */}
-          {true && (
-            <>
-              <ExchangeSelect
-                amount={tokenOneAmount}
-                setAmount={onChangeTokenOneAmount}
-                token={tokenOne}
-                setToken={setTokenOne}
-                list={poolTokenLists[0]}
-                selectText={"Select Token"}
-                bordered={true}
-                label="Swap from"
-                selectIcon={ordinals}
-                inputDisabled={!currentPool}
-                tokenDataList={tokenDataList}
-                showBalance={true}
-              />
-            </>
-          )}
-          {true && (
             <ExchangeSelect
               amount={
                 result
@@ -661,45 +628,73 @@ function ExchangeSwap() {
                     : result.out_token_amount
                   : ""
               }
-              setAmount={setTokenTwoAmount}
-              token={tokenTwo}
-              setToken={setTokenTwo}
-              list={poolTokenLists[1]}
+              setAmount={posChange ? setTokenOneAmount : setTokenTwoAmount}
+              token={posChange ? tokenOne : tokenTwo}
+              setToken={posChange ? setTokenOne : setTokenTwo}
+              list={posChange ? poolTokenLists[0] : poolTokenLists[1]}
               selectText={"Select Token"}
               bordered={true}
-              label={"Swap to"}
+              label={"Swap from / to"}
               selectIcon={ordinals}
               inputDisabled={true}
               tokenDataList={tokenDataList}
+              page="swap"
             />
-          )}
-          {/* {posChange &&
-            <ExchangeSelect
-              amount={tokenTwoAmount}
-              setAmount={onChangeTokenTwoAmount}
-              token={tokenTwo}
-              setToken={setTokenTwo}
-              list={poolTokenLists[1]}
-              selectText={"Select Token"}
-              bordered={true}
-              label={"Swap from"}
-            // inputDisabled={posChange}
-            />
-          }
-          {posChange &&
-            <ExchangeSelect
-              amount={result ? tokenTwo.tick == 'BTC' ? (result.out_token_amount / 1e8).toFixed(8) : result.out_token_amount : ''}
-              setAmount={onChangeTokenOneAmount}
-              token={tokenOne}
-              setToken={setTokenOne}
-              list={poolTokenLists[0]}
-              selectText={"Select Token"}
-              bordered={true}
-              label={"Swap to"}
-              selectIcon={ordinals}
-              inputDisabled={true}
-            />
-          } */}
+            {posChange && (
+              <div className="flex justify-center">
+                <img
+                  className="cursor-pointer"
+                  src={swap_img}
+                  onClick={() => {
+                    setPosChange((prev) => !prev);
+                    const temp = tokenOne;
+                    setTokenOne(tokenTwo);
+                    setTokenTwo(temp);
+                    const tempAmount = tokenOneAmount;
+                    setTokenOneAmount(tokenTwoAmount);
+                    setTokenTwoAmount(tempAmount);
+                    // console.log("poschange", tokenTwoAmount, tempAmount)
+                  }}
+                />
+              </div>
+            )}
+            {posChange && (
+              <>
+                <ExchangeSelectToken
+                  amount={tokenOneAmount}
+                  setAmount={onChangeTokenOneAmount}
+                  token={tokenTwo}
+                  setToken={setTokenTwo}
+                  list={poolTokenLists[1]}
+                  selectText={"Select Token"}
+                  bordered={true}
+                  label="to"
+                  selectIcon={ordinals}
+                  tokenDataList={tokenDataList}
+                />
+                <ExchangeSelect
+                  amount={
+                    result
+                      ? tokenTwo.tick == "BTC"
+                        ? (result.out_token_amount / 1e8).toFixed(8)
+                        : result.out_token_amount
+                      : ""
+                  }
+                  setAmount={setTokenTwoAmount}
+                  token={tokenTwo}
+                  setToken={setTokenTwo}
+                  list={poolTokenLists[1]}
+                  selectText={"Select Token"}
+                  bordered={true}
+                  label={"Swap to"}
+                  selectIcon={ordinals}
+                  inputDisabled={true}
+                  tokenDataList={tokenDataList}
+                  page="swap"
+                />
+              </>
+            )}
+          </div>
           <SwapRate />
           {/* <p>dajfkdlsjfkaasdfkljfdkslasdfkl</p> */}
           <SwapButton />

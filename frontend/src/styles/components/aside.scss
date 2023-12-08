@@ -4,15 +4,20 @@
   min-height: 100vh;
   margin-top: -76px;
 
-  width: 312px;
-  min-width: 312px;
-  background-color: getColor(base);
+  width: 220px;
+  min-width: 220px;
+  // background-color: getColor(base);
   height: max-content;
   padding-top: 2rem;
   top: 0;
   border: 0.5px solid #ffffff;
   border-radius: 20px;
-  backdrop-filter: blur(13.5px);
+  // backdrop-filter: blur(13.5px);
+
+  .btn.active {
+    background-color: #efe9e0;
+    color: #2c2e37 !important;
+  }
 
   footer {
     position: absolute;
@@ -36,7 +41,7 @@
       transform: translateY(3px);
       justify-content: space-between;
       width: 100%;
-      padding: 0px 50px;
+      padding: 0px 25px;
 
       img {
         width: 24px !important;
@@ -60,14 +65,13 @@
 
   .dark-theme & {
     border: none;
-    background-color: #1a1d1f;
+    // background-color: #1a1d1f;
     border-radius: 0;
   }
 }
 
 .logo__container_aside {
   cursor: pointer;
-  display: flex;
   align-items: center;
   color: #33383f;
   font-size: 16px;

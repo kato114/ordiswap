@@ -34,12 +34,26 @@
 @import "dark";
 
 .body__container {
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url(../assets/images/bg-light.png);
+  min-height: 100vh;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
 
-    &.dark-theme {
-        background: #111315;
-    }
+  &.dark-theme {
+    background-image: url(../assets/images/bg.jpg);
+    background-color: #101010;
+  }
+}
+
+.b-label {
+  color: #2c2e37;
+}
+
+.b-border {
+  width: fit-content;
+  border: 2px solid #2c2e37;
+}
+
+.msg__text {
+  font-size: 16px !important;
 }

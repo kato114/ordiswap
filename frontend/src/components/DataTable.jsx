@@ -72,9 +72,7 @@ const defaultData = [
   },
 ];
 
-
 function DataTable({ title = "", type, dataSource, columns }) {
-
   const [data, setData] = useState([]);
   const isMobileView_800 = useResponsiveView(800);
   const table = useReactTable({
@@ -91,29 +89,138 @@ function DataTable({ title = "", type, dataSource, columns }) {
       .filter((row) => row.order_type === type)
       .map((row, index) => {
         return {
-          ...row, no: index + 1
-        }
-      })
-    setData(datas)
-  }, [dataSource])
-
+          ...row,
+          no: index + 1,
+        };
+      });
+    setData(datas);
+  }, [dataSource]);
 
   useEffect(() => {
-    table.setPageSize(5)
-  }, [])
+    table.setPageSize(5);
+  }, []);
 
-  return isMobileView_800 ? (<>
-    {(type == 1) && <CreatePoolTable dataSource={data} />}
-    {(type == 2) && <AddLiquidityTable dataSource={data} />}
-    {(type == 3) && <RemoveLiquidityTable dataSource={data} />}
-    {(type == 4) && <SwapTable dataSource={data} />}
-    {/* {(type == 7) && <SwapTable dataSource={data} />} */}
-  </>
+  return isMobileView_800 ? (
+    <>
+      {type == 1 && <CreatePoolTable dataSource={data} />}
+      {type == 2 && <AddLiquidityTable dataSource={data} />}
+      {type == 3 && <RemoveLiquidityTable dataSource={data} />}
+      {type == 4 && <SwapTable dataSource={data} />}
+      {/* {(type == 7) && <SwapTable dataSource={data} />} */}
+    </>
   ) : (
     <div className="table__content overflow-x-auto">
       <h3>{title}</h3>
-      {data.length > 0 ? (
-        <>
+      <div className="b-border min-w-full">
+        {data.length > 0 ? (
+          <>
+            <table className="table">
+              <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody>
+                {table.getRowModel().rows.map((row, index) => {
+                  return (
+                    <tr key={index}>
+                      {row.getVisibleCells().map((cell) => {
+                        let entry = flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        );
+                        let element = flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        );
+
+                        switch (cell.column.id) {
+                          case "button":
+                            element = (
+                              <button
+                                className={`table-btn table-btn-${
+                                  cell.row.original.no === 1
+                                    ? "primary"
+                                    : cell.row.original.no === 2
+                                    ? "black"
+                                    : "green"
+                                }`}
+                              >
+                                {entry}
+                              </button>
+                            );
+                            break;
+
+                          case "status":
+                            element = (
+                              <span className="table-status table-status-outline">
+                                {entry}
+                              </span>
+                            );
+
+                            break;
+
+                          case "status-filled":
+                            element = (
+                              <span className="table-status table-status-filled">
+                                {entry}
+                              </span>
+                            );
+
+                            break;
+
+                          default:
+                            break;
+                        }
+                        return (
+                          <td
+                            key={cell.id}
+                            style={{
+                              width: cell.column.columnDef.width
+                                ? cell.column.columnDef.width
+                                : "",
+                            }}
+                          >
+                            {element}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                {table.getFooterGroups().map((footerGroup) => (
+                  <tr key={footerGroup.id}>
+                    {footerGroup.headers.map((header) => (
+                      <th key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.footer,
+                              header.getContext()
+                            )}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </tfoot>
+            </table>
+
+            <Pagination justPageNumbers={true} table={table} />
+          </>
+        ) : (
           <table className="table">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -123,124 +230,27 @@ function DataTable({ title = "", type, dataSource, columns }) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </th>
                   ))}
                 </tr>
               ))}
             </thead>
             <tbody>
-              {table.getRowModel().rows.map((row, index) => {
-                return (
-                  <tr key={index}>
-                    {row.getVisibleCells().map((cell) => {
-                      let entry = flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      );
-                      let element = flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      );
-
-                      switch (cell.column.id) {
-                        case "button":
-                          element = (
-                            <button
-                              className={`table-btn table-btn-${cell.row.original.no === 1
-                                ? "primary"
-                                : cell.row.original.no === 2
-                                  ? "black"
-                                  : "green"
-                                }`}
-                            >
-                              {entry}
-                            </button>
-                          );
-                          break;
-
-                        case "status":
-                          element = (
-                            <span className="table-status table-status-outline">
-                              {entry}
-                            </span>
-                          );
-
-                          break;
-
-                        case "status-filled":
-                          element = (
-                            <span className="table-status table-status-filled">
-                              {entry}
-                            </span>
-                          );
-
-                          break;
-
-                        default:
-                          break;
-                      }
-                      return <td key={cell.id} style={{ width: cell.column.columnDef.width ? cell.column.columnDef.width : '' }}>{element}</td>;
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-            <tfoot>
-              {table.getFooterGroups().map((footerGroup) => (
-                <tr key={footerGroup.id}>
-                  {footerGroup.headers.map((header) => (
-                    <th key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                          header.column.columnDef.footer,
-                          header.getContext()
-                        )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </tfoot>
-          </table>
-
-          <Pagination
-            justPageNumbers={true}
-            table={table}
-          />
-        </>
-      ) : (
-        <table className="table">
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                  </th>
-                ))}
+              <tr>
+                <td colSpan="12">
+                  <span className="nodata__container">
+                    <NoDataIcon />
+                    No Data
+                  </span>
+                </td>
               </tr>
-            ))}
-          </thead>
-          <tbody>
-            <tr>
-              <td colSpan="12">
-                <span className="nodata__container">
-                  <NoDataIcon />
-                  No Data
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      )}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 }

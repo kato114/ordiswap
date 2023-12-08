@@ -1,6 +1,6 @@
 .glass-effect {
   // background: getColor(backgroundDim);
-  border: 1px solid getColor(base2);
+  border: 2px solid getColor(base2);
   // box-shadow: getColor(boxShadow);
 }
 
@@ -44,7 +44,7 @@
   color: $clr-black;
   font-size: 16px;
   font-weight: 700;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   border-radius: 16px;
 
   display: flex;
@@ -93,7 +93,7 @@
 .d-btn:disabled {
   pointer-events: none;
   cursor: not-allowed;
-  border: 1px solid getColor(base2);
+  border: 2px solid getColor(base2);
   color: #d2d2d2 !important;
   background-color: #444343 !important;
 }
@@ -132,7 +132,7 @@
 }
 
 .icon {
-  width: 3rem;
+  width: 2rem;
   height: auto;
 }
 
@@ -152,9 +152,8 @@
 }
 
 .d-divider {
-  background-color: getColor(base2);
-  height: 2px;
-  width: 90%;
+  border-top: 1px dashed #efe9df;
+  margin: 20px 0px;
 }
 
 .collection__list {
@@ -211,7 +210,7 @@
 }
 
 .header.dark-theme {
-  background-color: #121212;
+  // background-color: #121212;
 }
 
 .submenu {
@@ -257,7 +256,7 @@
 
     .tabs {
       background-color: getColor(base1);
-      border: 1px solid getColor(border);
+      border: 2px solid getColor(border);
       flex-wrap: nowrap;
       justify-content: space-between;
       gap: 3px;
@@ -355,7 +354,7 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
-  // border: 1px solid rgba(255, 255, 255, 0.11);
+  // border: 2px solid rgba(255, 255, 255, 0.11);
   color: getColor(text);
   display: flex;
   justify-content: center;
@@ -399,9 +398,8 @@
   }
 
   .glass-effect {
-    border: 1px solid getColor(border);
+    border: 2px solid getColor(border);
     box-shadow: none;
-    background-color: rgba(255, 255, 255, 0.025);
   }
 
   .setting__wrapper {

@@ -1,5 +1,5 @@
 .header {
-  background-color: getColor(base);
+  // background-color: getColor(base);
   padding: 2rem 2rem;
   display: flex;
   justify-content: flex-end;
@@ -16,7 +16,7 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    background-color: #1a1d1f;
+    // background-color: #1a1d1f;
   }
 
   .logo__container {
@@ -111,7 +111,7 @@
 .mobile__menu-container {
   position: fixed;
   width: 100vw;
-  background-color: #eef1f4;
+  background-color: #101010;
   top: $header-size;
   left: -100px;
   opacity: 0;
@@ -121,10 +121,6 @@
   overflow-y: scroll;
 
   animation: slideLeft 0.3s linear forwards;
-
-  .dark-theme & {
-    background-color: #1a1d1f;
-  }
 
   ~ header {
     border-radius: 0;

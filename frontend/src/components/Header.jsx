@@ -81,7 +81,7 @@ function Header({
 
         {isMobileView_800 && (
           <button
-            className="d-btn d-btn-primary d-btn-grey flex items-center gap-6"
+            className="btn flex items-center gap-6"
             onClick={connectWallet}
           >
             <WalletIcon viewBox="0 0 22 22" classes="icon-xs" />
@@ -96,11 +96,11 @@ function Header({
 
                     <span className="hide-mobile-s">BTC Testnet</span>
                 </button> */}
-        {connected && balance && (
+        {/* {connected && balance && (
           <p className="!text-[2rem]">{`BTC : ${balance.total / 1e8}`}</p>
-        )}
+        )} */}
 
-        {!isMobileView_800 && (
+        {/* {!isMobileView_800 && (
           <button
             className="d-btn d-btn-outline d-btn-narrow flex items-center gap-6"
             onClick={connectWallet}
@@ -110,7 +110,7 @@ function Header({
               ? "Connect"
               : address?.slice(0, 5) + "..." + address?.slice(-5)}
           </button>
-        )}
+        )} */}
 
         {!toggleMobileMenu && isMobileView_800 && (
           <button

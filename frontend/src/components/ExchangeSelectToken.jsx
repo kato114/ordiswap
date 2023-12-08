@@ -7,6 +7,8 @@ import reosIcon from "../assets/icons/reos.png";
 import { useResponsiveView } from "../utils/customHooks";
 import { useModalState } from "../context/ModalContext";
 
+import down_img from "../assets/images/down.png";
+
 function ExchangeSelectToken({
   amount,
   setAmount,
@@ -72,41 +74,46 @@ function ExchangeSelectToken({
   };
 
   return (
-    <>
+    <div className="w-full">
+      {label && <p className="b-label text-[16px] mb-5">{label}</p>}
       <div
-        className="select-item relative text-[14px] py-[15px] px-[20px] cursor-pointer w-full rounded-[8px]"
+        className="select-item relative text-[14px] py-[10px] px-[10px] cursor-pointer w-full"
         onClick={handleToggleDataList}
       >
-        <div className="mb-3">{label}</div>
-        <div className="flex items-center">
-          <img
-            className="w-[32px] h-[32px] icon"
-            src={
-              selectedOption?.tick === "BTC"
-                ? btcIcon
-                : selectedOption?.tick === "reos"
-                ? reosIcon
-                : (() => {
-                    const selectedItem = tokenDataList?.filter(
-                      (item) =>
-                        item.symbol.toLowerCase() ===
-                        selectedOption?.tick.toLowerCase()
-                    );
-                    if (selectedItem && selectedItem.length > 0) {
-                      return selectedItem[0].iconUrl + "?size=30x30";
-                    }
-                    return ordinalIcon;
-                  })()
-            }
-            alt=""
-            style={{ borderRadius: "50%" }}
-          />
-          <div className="pl-3">
-            <div className="font-bold">{selectedOption?.tick || "Select"}</div>
-            <div className="text-[12px] text-[#6F767E]">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <img
+              className="w-[22px] h-[22px] icon"
+              src={
+                selectedOption?.tick === "BTC"
+                  ? btcIcon
+                  : selectedOption?.tick === "reos"
+                  ? reosIcon
+                  : (() => {
+                      const selectedItem = tokenDataList?.filter(
+                        (item) =>
+                          item.symbol.toLowerCase() ===
+                          selectedOption?.tick.toLowerCase()
+                      );
+                      if (selectedItem && selectedItem.length > 0) {
+                        return selectedItem[0].iconUrl + "?size=30x30";
+                      }
+                      return ordinalIcon;
+                    })()
+              }
+              alt=""
+              style={{ borderRadius: "50%" }}
+            />
+            <div className="pl-3">
+              <div className="font-bold">
+                {selectedOption?.tick || "Select"}
+              </div>
+              {/* <div className="text-[12px] text-[#6F767E]">
               {selectedOption?.tick === "BTC" ? "On Bitcoin" : "Ordinal"}
+            </div> */}
             </div>
           </div>
+          <img src={down_img} />
         </div>
         <div className="">
           {!disabled && (
@@ -120,7 +127,7 @@ function ExchangeSelectToken({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

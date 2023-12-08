@@ -23,6 +23,7 @@ function ExchangeSelect({
   disabled = false,
   inputDisabled = false,
   showBalance = false,
+  page = "other",
   ...props
 }) {
   const isMobileView_500 = useResponsiveView(500);
@@ -76,22 +77,25 @@ function ExchangeSelect({
   };
 
   return (
-    <>
-      {label && <p className="!font-medium !text-[16px]">{label}</p>}
+    <div>
+      {showBalance && (
+        <div className="flex justify-between">
+          <p className="b-label !font-medium !text-[14px] mb-2">amount</p>
+          {token && (
+            <div className="flex justify-between">
+              <p
+                className="b-label !font-medium !text-[14px] cursor-pointer"
+                onClick={() => setAmount(selectedOption.balance)}
+              >
+                bal: {balance}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
       <div className={`exchange__select relative ${!value ? "full-w" : ""}`}>
-        {/* <div className="input-box"> */}
-        <section
-          className="datalist__wrapper"
-          data-tooltip-id={props["data-tooltip-id"]}
-          data-tooltip-content={props["data-tooltip-content"]}
-          data-tooltip-place={props["data-tooltip-place"]}
-          data-tooltip-delay-hide={50000}
-        >
-          <button
-            className={`${bordered ? "bordered" : filled ? "filled" : ""} `}
-            disabled={disabled}
-            onClick={handleToggleDataList}
-          >
+        {page !== "swap" && (
+          <div className="flex gap-3">
             <img
               src={
                 selectedOption.tick == "BTC"
@@ -115,53 +119,21 @@ function ExchangeSelect({
               className="icon"
               style={{ borderRadius: "50%" }}
             />
-            {selectedOption.tick}
-            {/* {!disabled && <svg
-                            className="fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                        >
-                            {<path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />}
-                        </svg>} */}
-          </button>
-          {!disabled && (
-            <DataList
-              show={toggleDataList}
-              options={list}
-              handleBlur={handleDataListBlur}
-              setSelectedOption={setSelectedOption}
-              setToken={setToken}
-            />
-          )}
-        </section>
-        <div className="v-bar absolute w-[1px] h-[70%] left-[30%] bg-white"></div>
+            <p>{selectedOption.tick}</p>
+          </div>
+        )}
         {value && (
           <input
             type="text"
-            className="value text-right"
-            placeholder={"0"}
+            className={`value ${page !== "swap" ? "text-right" : "text-left"}`}
+            placeholder={page !== "swap" ? 0 : "tokens to sell"}
             value={amount}
             onChange={handleChange}
             disabled={inputDisabled}
           />
         )}
       </div>
-      {token && (
-        <div className="flex justify-between">
-          <p className="!font-medium !text-[14px]">Balance: {balance}</p>
-          {showBalance && (
-            <button
-              className="!font-medium !text-[14px] exchange__select_max_button px-[5px]"
-              onClick={() => setAmount(selectedOption.balance)}
-            >
-              Max
-            </button>
-          )}
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 

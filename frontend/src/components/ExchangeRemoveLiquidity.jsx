@@ -30,7 +30,9 @@ import Modal from "./Modal";
 
 const columnHelper = createColumnHelper();
 
-function ExchageRemoveLiquidity() {
+function ExchageRemoveLiquidity(props) {
+  const { exchange, handleExchangeAction } = props;
+
   const { modalState, openModal, closeModal } = useModalState();
   const { messageApi } = useToast();
   const { unisatContext, appContext } = useAuthState();
@@ -311,7 +313,7 @@ function ExchageRemoveLiquidity() {
     if (!connected)
       return (
         <button
-          className="d-btn d-btn-primary center-margin active"
+          className="btn w-full mt-[20px] center-margin active"
           onClick={(e) => {
             e.preventDefault();
             connectWallet();
@@ -322,7 +324,7 @@ function ExchageRemoveLiquidity() {
       );
     return (
       <button
-        className="d-btn d-btn-primary center-margin active"
+        className="btn w-full mt-[20px] center-margin active"
         onClick={handleRemoveBtn}
       >
         Remove liquidity
@@ -356,7 +358,7 @@ function ExchageRemoveLiquidity() {
 
             <div className="btn-group">
               <button
-                className="d-btn d-btn-primary active"
+                className="btn w-full mt-[20px] active"
                 onClick={handleRemoveLiquidity}
               >
                 {isLoading && <span className="loader-animation"></span>}
@@ -369,15 +371,24 @@ function ExchageRemoveLiquidity() {
           </section>
         </ReactPortal>
       )}
-      <section className="exchange__container-swap glass-effect center-margin">
-        <h2 className="text-center !text-[28px] mt-[7rem]">
-          Remove liquidity{" "}
-        </h2>
+      <section className="exchange__container-swap center-margin">
+        <h3 className="text-center mb-10">Remove liquidity</h3>
+        <section className="flex flex-col md:flex-row gap-5 justify-between mb-16">
+          <button
+            className={`btn ${exchange === "addLiquidity" ? "active" : ""}`}
+            onClick={() => handleExchangeAction("addLiquidity")}
+          >
+            Add Liquidity
+          </button>
+          <button
+            className={`btn ${exchange === "removeLiquidity" ? "active" : ""}`}
+            onClick={() => handleExchangeAction("removeLiquidity")}
+          >
+            Remove Liquidity
+          </button>
+        </section>
 
         <div className="swap__form center-margin full-w-select">
-          <p className="text-center !text-[16px] text-[#6F767E]">
-            Select LP Token to Remove
-          </p>
           <ExchangeSelect
             amount={lPAmount}
             setAmount={setLPAmount}

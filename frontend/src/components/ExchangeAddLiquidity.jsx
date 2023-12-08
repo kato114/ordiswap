@@ -35,7 +35,11 @@ import Modal from "./Modal";
 
 const columnHelper = createColumnHelper();
 
-function ExchangeAddLiquidity() {
+import liquidity_img from "../assets/images/liquidity.png";
+
+function ExchangeAddLiquidity(props) {
+  const { exchange, handleExchangeAction } = props;
+
   const { messageApi } = useToast();
   const { unisatContext, appContext } = useAuthState();
   const {
@@ -360,7 +364,7 @@ function ExchangeAddLiquidity() {
     if (!connected)
       return (
         <button
-          className="d-btn d-btn-primary center-margin active"
+          className="btn w-full mt-[20px] center-margin active"
           onClick={(e) => {
             e.preventDefault();
             connectWallet();
@@ -372,7 +376,7 @@ function ExchangeAddLiquidity() {
     if (!tokenOne || !tokenTwo)
       return (
         <button
-          className="d-btn d-btn-primary center-margin active"
+          className="btn w-full mt-[20px] center-margin active"
           disabled={true}
         >
           Select a token
@@ -380,7 +384,7 @@ function ExchangeAddLiquidity() {
       );
     return (
       <button
-        className="d-btn d-btn-primary center-margin active"
+        className="btn w-full mt-[20px] center-margin active"
         disabled={!currentPool}
         onClick={handleAddBtn}
       >
@@ -419,7 +423,7 @@ function ExchangeAddLiquidity() {
 
             <div className="btn-group">
               <button
-                className="d-btn d-btn-primary active"
+                className="btn w-full mt-[20px] active"
                 onClick={handleAddLiquidity}
               >
                 {isLoading && <span className="loader-animation"></span>}
@@ -432,25 +436,25 @@ function ExchangeAddLiquidity() {
           </section>
         </ReactPortal>
       )}
-      <section className="exchange__container-swap glass-effect center-margin pt-[10rem]">
-        <h2 className="text-center !text-[28px]">Add liquidity </h2>
+      <section className="exchange__container-swap center-margin">
+        <h3 className="text-center mb-10">Add liquidity </h3>
 
-        <hr className="my-[2rem]" />
-        <div className="mb-3 flex gap-8 relative">
-          <div
-            className="swap-position w-[42px] h-[42px] flex items-center justify-center absolute z-10 text-[20px] rounded-full bg-white border cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            onClick={() => {
-              setPosChange((prev) => !prev);
-              const temp = tokenOne;
-              setTokenOne(tokenTwo);
-              setTokenTwo(temp);
-              const tempAmount = tokenOneAmount;
-              setTokenOneAmount(tokenTwoAmount);
-              setTokenTwoAmount(tempAmount);
-            }}
+        <section className="flex flex-col md:flex-row justify-between mb-16 gap-5">
+          <button
+            className={`btn ${exchange === "addLiquidity" ? "active" : ""}`}
+            onClick={() => handleExchangeAction("addLiquidity")}
           >
-            {"<->"}
-          </div>
+            Add Liquidity
+          </button>
+          <button
+            className={`btn ${exchange === "removeLiquidity" ? "active" : ""}`}
+            onClick={() => handleExchangeAction("removeLiquidity")}
+          >
+            Remove Liquidity
+          </button>
+        </section>
+
+        <div className="mb-3 flex flex-col md:flex-row items-center justify-stretch gap-8 relative">
           {!posChange && (
             <ExchangeSelectToken
               amount={tokenOneAmount}
@@ -463,6 +467,23 @@ function ExchangeAddLiquidity() {
               selectIcon={ordinals}
               tokenDataList={tokenDataList}
             />
+          )}
+          {!posChange && (
+            <div className="flex items-center justify-center">
+              <img
+                className="cursor-pointer min-w-[32px]"
+                src={liquidity_img}
+                onClick={() => {
+                  setPosChange((prev) => !prev);
+                  const temp = tokenOne;
+                  setTokenOne(tokenTwo);
+                  setTokenTwo(temp);
+                  const tempAmount = tokenOneAmount;
+                  setTokenOneAmount(tokenTwoAmount);
+                  setTokenTwoAmount(tempAmount);
+                }}
+              />
+            </div>
           )}
           <ExchangeSelectToken
             amount={
@@ -482,6 +503,23 @@ function ExchangeAddLiquidity() {
             tokenDataList={tokenDataList}
           />
           {posChange && (
+            <div className="flex items-center justify-center">
+              <img
+                className="cursor-pointer min-w-[32px]"
+                src={liquidity_img}
+                onClick={() => {
+                  setPosChange((prev) => !prev);
+                  const temp = tokenOne;
+                  setTokenOne(tokenTwo);
+                  setTokenTwo(temp);
+                  const tempAmount = tokenOneAmount;
+                  setTokenOneAmount(tokenTwoAmount);
+                  setTokenTwoAmount(tempAmount);
+                }}
+              />
+            </div>
+          )}
+          {posChange && (
             <ExchangeSelectToken
               amount={tokenOneAmount}
               setAmount={setTokenOneAmount}
@@ -495,9 +533,8 @@ function ExchangeAddLiquidity() {
             />
           )}
         </div>
-        <hr className="my-[2rem]" />
 
-        <div className="swap__form center-margin full-w-select">
+        <div className="swap__form center-margin full-w-select mt-10">
           <ExchangeSelect
             amount={tokenOneAmount}
             setAmount={onChangeTokenOneAmount}
@@ -523,37 +560,6 @@ function ExchangeAddLiquidity() {
             selectIcon={ordinals}
             tokenDataList={tokenDataList}
           />
-
-          {/* {!posChange &&
-                        <ExchangeSelect
-                            amount={tokenOneAmount}
-                            setAmount={setTokenOneAmount}
-                            token={tokenOne}
-                            setToken={setTokenOne}
-                            list={tokenSelectList[0]}
-                            selectText={"Select Token"}
-                            bordered={true}
-                            // inputDisabled={true}
-                            selectIcon={ordinals} />
-                    } */}
-
-          {/* <div className="mt-[3rem]"></div> */}
-
-          {/* <ExchangeSelect
-                        amount={result ? result.lp_token_amount : ''}
-                        setAmount={setLPAmount}
-                        token={{ tick: currentPool ? currentPool.lp_token : 'No pool' }}
-                        setToken={setTokenTwo}
-                        list={tokenSelectList[1]}
-                        selectText={currentPool ? currentPool.lp_token : 'No pool'}
-                        bordered={true}
-                        selectIcon={ordinals}
-                        disabled={true}
-                        label={currentPool ? 'You will receive LP token' : 'Select available token pair.'}
-                        inputDisabled={true}
-                        tokenDataList={tokenDataList}
-                    /> */}
-
           <AddLiquidityBtn />
         </div>
       </section>

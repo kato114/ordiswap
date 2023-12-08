@@ -10,6 +10,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
+import logoImage from "../assets/images/logo_mobile.png";
 import rocketImage from "../assets/images/rocket.png";
 
 import ratioIcon from "../assets/icons/ratio.svg";
@@ -42,7 +43,7 @@ const options = {
       display: false,
     },
     y: {
-      display: true,
+      display: false,
     },
   },
 };
@@ -54,16 +55,13 @@ const defaultData = {
   datasets: [
     {
       data: [0, 0, 0, 0, 0, 0, 0],
-      borderColor: "#448AFF",
-      // backgroundColor: "rgb(105, 0, 255,0.3)",
-      // fill: true,
-
+      borderColor: "#efe9e010",
       fill: "start",
       backgroundColor: (context) => {
         const ctx = context.chart.ctx;
-        const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-        gradient.addColorStop(0, "#448AFF");
-        gradient.addColorStop(1, "#448AFF10");
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, "#efe9e0");
+        gradient.addColorStop(1, "#141414");
         return gradient;
       },
       lineTension: 1,
@@ -88,16 +86,17 @@ function Dashboard() {
       datasets: [
         {
           data: chartData[period].map((row) => row[1]),
-          borderColor: "#448AFF",
+          borderColor: "#efe9e010",
           fill: "start",
           backgroundColor: (context) => {
             const ctx = context.chart.ctx;
             const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, "#448AFF");
-            gradient.addColorStop(1, "#448AFF10");
+            gradient.addColorStop(0, "#efe9e0");
+            gradient.addColorStop(1, "#141414");
             return gradient;
           },
           lineTension: 0.4,
+          pointRadius: 1,
         },
       ],
     };
@@ -112,33 +111,9 @@ function Dashboard() {
   }, [chartData, period]);
   return (
     <section className="dashboard__container">
-      <h1>Ordiswap</h1>
+      <img src={logoImage} width={50} alt="Logo" />
+      <h3>Ordiswap</h3>
       <p>Ordiswap brings dynamic AMM infrastructure to BRC-20</p>
-
-      <section className="cards__container">
-        <Link to="/swap" className="card glass-effect">
-          <div className="flex items-center exchange-icon">
-            <ExchangeIcon />
-            <h3>Swap</h3>
-          </div>
-          <div className="text-[31px] text-[#6F767E]">{"->"}</div>
-        </Link>
-
-        <Link to="/Liquidity" className="card glass-effect">
-          <div className="flex items-center swap-icon">
-            <SwapIcon />
-            <h3>Liquidity</h3>
-          </div>
-          <div className="text-[31px] text-[#6F767E]">{"->"}</div>
-        </Link>
-        <Link to={"/pool"} className="card glass-effect">
-          <div className="flex items-center pool-icon">
-            <LPIcon />
-            <h3>Pool</h3>
-          </div>
-          <div className="text-[31px] text-[#6F767E]">{"->"}</div>
-        </Link>
-      </section>
 
       <section className="content">
         <article className="content__detail glass-effect">
@@ -160,41 +135,49 @@ function Dashboard() {
             </div>
           </header>
 
-          <div className="absolute top-[25px] md:ml-[45%] ml-[30px] text-center">
-            <div className="md:text-[24px] text-[14px]">Ordinals</div>
-            <div className="md:text-[32px] text-[20px] font-medium">
-              {currentPrice}
-            </div>
+          <div className="absolute top-[15px] ml-[15px] text-left">
+            <h3 className="!text-[14px] font-medium">Ordinals</h3>
             {negativePercent && (
-              <div className="md:text-[18px] text-[12px] text-[#D74136]">
-                {percent}
-              </div>
+              <>
+                <div className="text-[20px] text-[#D74136] font-medium">
+                  {currentPrice}
+                </div>
+                <div className="text-[15px] text-[#D74136]">{percent}</div>
+              </>
             )}
             {!negativePercent && (
-              <div className="md:text-[18px] text-[12px] text-[#3BDC68]">
-                {percent}
-              </div>
+              <>
+                <div className="text-[20px] text-[#D74136] font-medium">
+                  {currentPrice}
+                </div>
+                <div className="text-[15px] text-[#3BDC68]">{percent}</div>
+              </>
             )}
           </div>
 
           <Line options={options} data={reactChartData} />
         </article>
 
-        {/* <article className="content__info">
+        <article className="content__info mt-[20px] xl:mt-0">
           <section className="glass-effect">
-            <h3 className="!text-[24px]">Ordinals</h3>
+            <h3 className="!text-[16px]">Ordinals</h3>
             <p className="!text-[14px]">
               This gives anyone the ability to create a market by depositing
               their crypto assets into a liquidity pool.
             </p>
           </section>
-          <section className="glass-effect">
-            <p className="!text-[#448AFF]">
-              The 1st AMM Dex & DAO based on brc-20 token standard
-            </p>
-            <img src={rocketImage} alt="rocket" />
-          </section>
-        </article> */}
+          <div className="flex gap-5 flex-wrap mt-5">
+            <Link to="/swap">
+              <button className="btn">Swap</button>
+            </Link>
+            <Link to="/liquidity">
+              <button className="btn">Liquidity</button>
+            </Link>
+            <Link to="/pool">
+              <button className="btn">Pool</button>
+            </Link>
+          </div>
+        </article>
       </section>
     </section>
   );
