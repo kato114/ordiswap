@@ -100,7 +100,7 @@ function ExchangeSelect({
               src={
                 selectedOption.tick == "BTC"
                   ? btcIcon
-                  : selectedOption?.tick === "reos"
+                  : selectedOption?.tick === "REOS"
                   ? reosIcon
                   : (() => {
                       const selectedItem = tokenDataList?.filter(
@@ -129,7 +129,6 @@ function ExchangeSelect({
             placeholder={page !== "swap" ? 0 : "tokens to sell"}
             value={amount}
             onChange={handleChange}
-            disabled={inputDisabled}
           />
         )}
       </div>

@@ -87,7 +87,7 @@ function ExchangeSelectToken({
               src={
                 selectedOption?.tick === "BTC"
                   ? btcIcon
-                  : selectedOption?.tick === "reos"
+                  : selectedOption?.tick === "REOS"
                   ? reosIcon
                   : (() => {
                       const selectedItem = tokenDataList?.filter(

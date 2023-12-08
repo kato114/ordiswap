@@ -116,7 +116,7 @@ function DataList({
                       src={
                         option.tick === "BTC"
                           ? btcIcon
-                          : option.tick === "reos"
+                          : option.tick === "REOS"
                           ? reosIcon
                           : (() => {
                               const selectedItem =
