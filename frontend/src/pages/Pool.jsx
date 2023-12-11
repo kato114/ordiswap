@@ -268,22 +268,19 @@ function Pool() {
       {modalState.open && (
         <ReactPortal>
           <section className="modal__content">
-            <h2>
+            <p>
               Are you sure to create a new pool for {tokenOne?.tick}/
               {tokenTwo.tick} with a service fee of{" "}
               {calculateFee(feeRate).create_pool_fee / 1e8} BTC?
-            </h2>
+            </p>
 
             <div className="btn-group">
-              <button
-                className="btn w-full mt-[20px] active"
-                onClick={handleCreatePool}
-              >
+              <button className="btn w-full" onClick={handleCreatePool}>
                 {isLoading && <span className="loader-animation"></span>}
                 Yes
               </button>
               <button
-                className="d-btn d-btn-outline"
+                className="btn w-full"
                 onClick={() => {
                   closeModal();
                   setIsLoading(false);

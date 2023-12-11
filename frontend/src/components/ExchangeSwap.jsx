@@ -473,23 +473,20 @@ function ExchangeSwap() {
       {modalState.open && (
         <ReactPortal>
           <section className="modal__content">
-            <h2>
+            <p>
               {`Are you sure to swap ${tokenOne?.tick}(${tokenOneAmount}) to ${
                 tokenTwo?.tick
               }(${tokenTwoAmount}) with a service fee of ${
                 calculateFee(feeRate).swap_fee / 1e8
               } BTC?`}
-            </h2>
+            </p>
 
             <div className="btn-group">
-              <button
-                className="d-btn d-btn-primary active"
-                onClick={handleSwap}
-              >
+              <button className="btn w-full" onClick={handleSwap}>
                 {isLoading && <span className="loader-animation"></span>}
                 Yes
               </button>
-              <button className="d-btn d-btn-outline" onClick={closeModal}>
+              <button className="btn w-full" onClick={closeModal}>
                 No
               </button>
             </div>

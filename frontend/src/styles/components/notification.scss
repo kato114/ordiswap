@@ -2,6 +2,7 @@
 .Toastify__toast-body,
 .Toastify__toast {
   padding: 0 !important;
+  border-radius: 0px !important;
 }
 
 .Toastify__toast-container {
@@ -12,7 +13,7 @@
 
 .Toastify__toast,
 .Toastify__toast-body {
-  border-radius: 1rem !important;
+  border-radius: 0px !important;
   overflow: hidden;
   height: max-content !important;
   min-height: max-content !important;
@@ -24,29 +25,29 @@
 
 .msg__container {
   &.success {
-    --main-clr: #4cbd7a;
+    --main-clr: #2c2e37;
   }
 
   &.warning {
-    --main-clr: #ffba0a;
+    --main-clr: #2c2e37;
   }
 
   &.failed {
-    --main-clr: #ff783f;
+    --main-clr: #2c2e37;
   }
 
   width: 100%;
   display: flex;
   font-family: $font-family;
-  border-radius: 1rem;
+  border-radius: 0;
   overflow: hidden;
   border: 2px solid var(--main-clr);
-  color: var(--main-clr);
+  color: white;
   position: relative;
 
   .msg__icon {
     background-color: var(--main-clr);
-    padding: 1rem 3rem;
+    padding: 1rem 1rem;
 
     display: flex;
     align-items: center;
@@ -58,10 +59,10 @@
   }
 
   .msg__text {
-    padding: 2rem 3rem;
-    padding-right: 10rem;
-    font-size: 3rem;
-    background-color: getColor(base1);
+    padding: 1rem 2rem;
+    padding-right: 5rem;
+    font-size: 12px;
+    background-color: #000000;
     width: 100%;
     display: flex;
     align-items: center;
@@ -71,14 +72,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 2rem;
+    right: 1rem;
   }
 
   svg {
     fill: var(--main-clr);
     stroke: var(--main-clr);
-    width: 4rem;
-    height: 4rem;
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -103,25 +104,18 @@
   }
 
   .msg__container {
-    .msg__icon {
-      padding: 1rem 1.5rem;
-    }
-
     .msg__text {
-      padding: 1rem 2rem;
-      padding-right: 7rem;
-      font-size: 2.5rem;
+      font-size: 12px;
     }
   }
 }
 
 @media only screen and (max-width: 500px) {
   .Toastify__toast-container {
-    top: 13rem !important;
-    right: 1rem !important;
-    left: initial !important;
-    margin: 20px !important;
-    max-width: 350px;
+    top: 5rem !important;
+    left: calc(50vw - 135px) !important;
+    right: auto;
+    max-width: 270px;
   }
 
   .Toastify__toast-container,

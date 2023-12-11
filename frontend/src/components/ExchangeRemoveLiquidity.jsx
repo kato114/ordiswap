@@ -350,21 +350,18 @@ function ExchageRemoveLiquidity(props) {
       {modalState.open && (
         <ReactPortal>
           <section className="modal__content">
-            <h2>
+            <p>
               Are you sure to remove liquidity for {tokenOne?.tick}/
               {tokenTwo?.tick} with a service fee of{" "}
               {calculateFee(feeRate).remove_liquidity_fee / 1e8} BTC?
-            </h2>
+            </p>
 
             <div className="btn-group">
-              <button
-                className="btn w-full mt-[20px] active"
-                onClick={handleRemoveLiquidity}
-              >
+              <button className="btn w-full" onClick={handleRemoveLiquidity}>
                 {isLoading && <span className="loader-animation"></span>}
                 Yes
               </button>
-              <button className="d-btn d-btn-outline" onClick={closeModal}>
+              <button className="btn w-full" onClick={closeModal}>
                 No
               </button>
             </div>

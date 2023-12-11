@@ -411,7 +411,7 @@ function ExchangeAddLiquidity(props) {
       {modalState.open && (
         <ReactPortal>
           <section className="modal__content">
-            <h2>
+            <p>
               {`Are you sure to add liquidity ${
                 tokenOne?.tick
               }(${tokenOneAmount})/${
@@ -419,17 +419,14 @@ function ExchangeAddLiquidity(props) {
               }(${tokenTwoAmount}) with a service fee of ${
                 calculateFee(feeRate).add_liquidity_fee / 1e8
               } BTC?`}
-            </h2>
+            </p>
 
             <div className="btn-group">
-              <button
-                className="btn w-full mt-[20px] active"
-                onClick={handleAddLiquidity}
-              >
+              <button className="btn w-full" onClick={handleAddLiquidity}>
                 {isLoading && <span className="loader-animation"></span>}
                 Yes
               </button>
-              <button className="d-btn d-btn-outline" onClick={closeModal}>
+              <button className="btn w-full" onClick={closeModal}>
                 No
               </button>
             </div>

@@ -125,7 +125,9 @@ function ExchangeSelect({
         {value && (
           <input
             type="text"
-            className={`value ${page !== "swap" ? "text-right" : "text-left"}`}
+            className={`value w-full ${
+              page !== "swap" ? "text-right" : "text-left !max-w-full"
+            }`}
             placeholder={page !== "swap" ? 0 : "tokens to sell"}
             value={amount}
             onChange={handleChange}

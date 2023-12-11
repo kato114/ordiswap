@@ -1,19 +1,29 @@
 .modal-container {
-    .dark-theme & {
-        .modal-wrapper {
-            background: #1A1D1F;
+  .dark-theme & {
+    .modal-wrapper {
+      background: #1b1b1beb;
+      border: 2px solid #2c2e37;
 
-            .border-color {
-                border-color: #ffffff50;
-            }
+      .border-color {
+        border-color: #ffffff50;
+      }
 
-            .text-dark {
-                color: white;
-            }
-        }
+      .text-dark {
+        color: white;
+      }
     }
+  }
 
-    input {
-        color: black;
-    }
+  input[type="number"]::-webkit-inner-spin-button {
+    display: none;
+  }
+
+  input {
+    padding: 1rem 2rem 0.5rem;
+    font-size: 16px;
+    border: 2px solid #2c2e37;
+    background: transparent;
+    color: #efe9e0;
+    appearance: none;
+  }
 }
